@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
+                git url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
         stage('Install Go') {
