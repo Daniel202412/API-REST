@@ -23,6 +23,7 @@ pipeline {
         stage('Build and Run') {
             steps {
                 dir('main') { // Apunta a la carpeta main
+                    sh 'ls -al' // Lista los archivos en la carpeta main para verificar
                     sh 'go run mainPrueba.go'
                 }
             }
