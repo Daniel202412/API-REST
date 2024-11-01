@@ -8,13 +8,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
+                git url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
         stage('Build and Run') {
             steps {
                 sh 'find . -name mainPrueba.go' // Busca el archivo en el repositorio
-                sh 'go run https://github.com/Daniel202412/API-REST/blob/main/mainprueba.go' // Ejecuta el archivo desde la carpeta main
+                sh 'go run mainprueba.go' // Ejecuta el archivo desde la carpeta main
             }
         }
     }
