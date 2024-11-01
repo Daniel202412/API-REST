@@ -28,6 +28,7 @@ pipeline {
         }
         stage('Find and Run') {
             steps {
+                sh 'find ${WORKSPACE} -name mainPrueba.go' // Busca el archivo en el repositorio
                 script {
                     def goFile = sh(script: 'find ${WORKSPACE} -name mainPrueba.go', returnStdout: true).trim()
                     if (goFile) {
@@ -40,4 +41,5 @@ pipeline {
         }
     }
 }
+
 
