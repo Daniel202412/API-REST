@@ -1,12 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'golang:latest'
+        }
+    }
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
-        stage('Verify and Run') {
+        stage('Build and Run') {
             steps {
                 dir('main') {
                     sh 'ls -al' // Lista los archivos en la carpeta main para verificar
