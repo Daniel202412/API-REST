@@ -22,7 +22,9 @@ pipeline {
         }
         stage('Build and Run') {
             steps {
-                sh 'go run mainPrueba.go'
+                dir('main') { // Apunta a la carpeta main
+                    sh 'go run mainPrueba.go'
+                }
             }
         }
     }
