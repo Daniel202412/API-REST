@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'golang:latest'
-        }
+        label 'docker'
     }
     stages {
         stage('Checkout') {
@@ -12,7 +10,7 @@ pipeline {
         }
         stage('Build and Run') {
             steps {
-                sh 'go run mainPrueba.go'
+                sh 'docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang:latest go run mainPrueba.go'
             }
         }
     }
