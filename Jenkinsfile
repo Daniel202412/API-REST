@@ -14,7 +14,7 @@ pipeline {
         stage('Build and Run') {
             steps {
                 sh 'find . -name mainPrueba.go' // Busca el archivo en el repositorio
-                sh 'go run main/mainPrueba.go' // Ejecuta el archivo desde la carpeta main
+                sh 'go run https://github.com/Daniel202412/API-REST/blob/main/mainprueba.go' // Ejecuta el archivo desde la carpeta main
             }
         }
     }
