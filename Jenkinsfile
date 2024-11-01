@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        GOROOT = "${env.WORKSPACE}/go"
+        GOPATH = "${env.WORKSPACE}/gopath"
+        PATH = "${env.PATH}:${env.GOROOT}/bin:${env.GOPATH}/bin"
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -12,14 +17,17 @@ pipeline {
                 curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz
                 mkdir -p ${WORKSPACE}/go
                 tar -C ${WORKSPACE}/go --strip-components=1 -xzf go1.16.7.linux-amd64.tar.gz
+                export PATH=${WORKSPACE}/go/bin:$PATH
                 '''
             }
         }
         stage('Find and Run') {
             steps {
-                sh 'find ${WORKSPACE} -name mainPrueba.go' // Buscar el archivo en el repositorio
-                sh 'ls -al ${WORKSPACE}/main' // Lista los archivos en la carpeta main
-                sh 'go run ${WORKSPACE}/main/mainPrueba.go' // Ejecuta el archivo Go
+                dir('main') {
+                    sh 'ls -al' // Lista los archivos en la carpeta main para verificar
+                    sh 'go env' // Verifica la configuración de Go
+                    sh 'go run mainPrueba.go' // Ejecuta el archivo Go
+                }
             }
         }
     }
