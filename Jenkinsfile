@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Daniel202412/API-REST.git'
+                git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
         stage('Install Go') {
