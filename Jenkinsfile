@@ -11,15 +11,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
-        stage('Install Go') {
-            steps {
-                sh '''
-                curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz
-                mkdir -p ${WORKSPACE}/go
-                tar -C ${WORKSPACE}/go --strip-components=1 -xzf go1.16.7.linux-amd64.tar.gz
-                '''
-            }
-        }
         stage('Build and Run') {
             steps {
                 dir('main') { // Apunta a la carpeta main
