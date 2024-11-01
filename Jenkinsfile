@@ -1,21 +1,11 @@
 pipeline {
     agent any
-    environment {
-        GOROOT = "${env.WORKSPACE}/go"
-        GOPATH = "${env.WORKSPACE}/gopath"
-        PATH = "${env.PATH}:${env.GOROOT}/bin:${env.GOPATH}/bin"
-    }
     stages {
-        stage('Checkout') {
+        stage('Run Jenkins Docker Container') {
             steps {
-                git url: 'https://github.com/Daniel202412/API-REST.git'
-            }
-        }
-        stage('Find and Run') {
-            steps {
-                sh 'find ${WORKSPACE} -name mainPrueba.go' // Buscar el archivo en el repositorio
-                sh 'ls -al ${WORKSPACE}/main' // Lista los archivos en la carpeta main
-                sh 'go run ${WORKSPACE}/main/mainPrueba.go' // Ejecuta el archivo Go
+                sh '''
+                docker run -d --name jenkins_server -p 9090:8080 -p 50000:50000 jenkins/jenkins:lts
+                '''
             }
         }
     }
