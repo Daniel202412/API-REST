@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'golang:latest'
-        }
+        label 'docker'
     }
     stages {
         stage('Checkout') {
@@ -12,7 +10,7 @@ pipeline {
         }
         stage('Build and Run') {
             steps {
-                sh 'go run mainPrueba.go'
+                sh 'docker run -p 9090:8080 -p 50000:50000 jenkins/jenkins:lts'
             }
         }
     }
