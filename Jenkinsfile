@@ -1,21 +1,25 @@
 pipeline {
-    agent {
-        docker {
-            image 'golang:latest'
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
+        stage('Install Go') {
+            steps {
+                sh '''
+                sudo apt-get update
+                sudo apt-get install -y golang
+                '''
+            }
+        }
         stage('Build and Run') {
             steps {
                 dir('main') {
-                    sh 'ls -al' // Lista los archivos en la carpeta main para verificar
-                    sh 'go env' // Verifica la configuración de Go
-                    sh 'go run mainPrueba.go' // Ejecuta el archivo Go
+                    sh 'ls -al'
+                    sh 'go env'
+                    sh 'go run mainPrueba.go'
                 }
             }
         }
