@@ -28,10 +28,16 @@ pipeline {
         }
         stage('Find and Run') {
             steps {
-                sh 'find ${WORKSPACE} -name mainPrueba.go' // Busca el archivo en el repositorio
-                sh 'go env' // Verifica la configuración de Go
-                sh 'go run $(find ${WORKSPACE} -name mainPrueba.go)' // Ejecuta el archivo Go
+                script {
+                    def goFile = sh(script: 'find ${WORKSPACE} -name mainPrueba.go', returnStdout: true).trim()
+                    if (goFile) {
+                        sh "go run ${goFile}"
+                    } else {
+                        error "mainPrueba.go not found"
+                    }
+                }
             }
         }
     }
 }
+
