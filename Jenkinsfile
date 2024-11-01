@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        GOROOT = "${env.WORKSPACE}/go"
+        GOPATH = "${env.WORKSPACE}/gopath"
+        PATH = "${env.PATH}:${env.GOROOT}/bin:${env.GOPATH}/bin"
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -8,11 +13,10 @@ pipeline {
         }
         stage('Install Go') {
             steps {
-                // Intentar instalar Go sin necesidad de sudo
                 sh '''
                 curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz
-                tar -C /usr/local -xzf go1.16.7.linux-amd64.tar.gz
-                export PATH=$PATH:/usr/local/go/bin
+                mkdir -p ${WORKSPACE}/go
+                tar -C ${WORKSPACE}/go --strip-components=1 -xzf go1.16.7.linux-amd64.tar.gz
                 '''
             }
         }
