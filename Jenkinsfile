@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Verify Repository Structure') {
             steps {
-                sh 'find ${WORKSPACE} -type f' // Verifica la estructura completa del repositorio
+                sh 'find ${WORKSPACE} -type f' // Lista todo el contenido del directorio
             }
         }
         stage('Find and Run') {
