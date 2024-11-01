@@ -13,10 +13,8 @@ pipeline {
         }
         stage('Build and Run') {
             steps {
-                dir('main') { // Apunta a la carpeta main
-                    sh 'ls -al' // Lista los archivos en la carpeta main para verificar
-                    sh 'go run mainPrueba.go'
-                }
+                sh 'find . -name mainPrueba.go' // Busca el archivo en el repositorio
+                sh 'go run main/mainPrueba.go' // Ejecuta el archivo desde la carpeta main
             }
         }
     }
