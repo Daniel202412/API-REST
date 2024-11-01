@@ -21,6 +21,11 @@ pipeline {
                 '''
             }
         }
+        stage('Verify Repository Structure') {
+            steps {
+                sh 'find ${WORKSPACE}' // Verifica la estructura completa del repositorio
+            }
+        }
         stage('Find and Run') {
             steps {
                 dir('main') {
