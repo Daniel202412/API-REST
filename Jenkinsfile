@@ -28,11 +28,9 @@ pipeline {
         }
         stage('Find and Run') {
             steps {
-                dir('main') {
-                    sh 'ls -al' // Lista los archivos en la carpeta main para verificar
-                    sh 'go env' // Verifica la configuración de Go
-                    sh 'go run mainPrueba.go' // Ejecuta el archivo Go
-                }
+                sh 'find ${WORKSPACE} -name mainPrueba.go' // Busca el archivo en el repositorio
+                sh 'go env' // Verifica la configuración de Go
+                sh 'go run $(find ${WORKSPACE} -name mainPrueba.go)' // Ejecuta el archivo Go
             }
         }
     }
