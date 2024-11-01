@@ -9,8 +9,8 @@ pipeline {
         stage('Install Go') {
             steps {
                 sh '''
-                apt-get update
-                apt-get install -y golang
+                sudo apt-get update
+                sudo apt-get install -y golang
                 '''
             }
         }
