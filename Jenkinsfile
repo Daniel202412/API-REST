@@ -23,13 +23,20 @@ pipeline {
         }
         stage('Verify Repository Structure') {
             steps {
-                sh 'find ${WORKSPACE}' // Verifica la estructura completa del repositorio
+                sh 'find ${WORKSPACE} -type f' // Verifica la estructura completa del repositorio
             }
         }
         stage('Find and Run') {
             steps {
-                sh 'ls -al ${WORKSPACE}' // Lista los archivos en el directorio raíz
-                sh 'go run ${WORKSPACE}/mainPrueba.go' // Ejecuta el archivo Go
+                script {
+                    def goFile = sh(script: 'find ${WORKSPACE} -name mainPrueba.go', returnStdout: true).trim()
+                    echo "Ubicación de mainPrueba.go: ${goFile}"
+                    if (goFile) {
+                        sh "go run ${goFile}"
+                    } else {
+                        error "mainPrueba.go not found"
+                    }
+                }
             }
         }
     }
