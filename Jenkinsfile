@@ -22,9 +22,10 @@ pipeline {
         }
         stage('Build and Run') {
             steps {
-                sh 'go run mainPrueba.go'
+                dir('src') { // Ajusta 'src' si el archivo está en un subdirectorio
+                    sh 'go run mainPrueba.go'
+                }
             }
         }
     }
 }
-
