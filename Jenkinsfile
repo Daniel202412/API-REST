@@ -11,15 +11,6 @@ pipeline {
                 git url: 'https://github.com/Daniel202412/API-REST.git'
             }
         }
-        stage('Install Go') {
-            steps {
-                sh '''
-                curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz
-                mkdir -p ${WORKSPACE}/go
-                tar -C ${WORKSPACE}/go --strip-components=1 -xzf go1.16.7.linux-amd64.tar.gz
-                '''
-            }
-        }
         stage('Find and Run') {
             steps {
                 sh 'find ${WORKSPACE} -name mainPrueba.go' // Buscar el archivo en el repositorio
