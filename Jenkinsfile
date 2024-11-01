@@ -1,11 +1,25 @@
 pipeline {
     agent any
     stages {
-        stage('Run Jenkins Docker Container') {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Daniel202412/API-REST.git'
+            }
+        }
+        stage('Install Go') {
             steps {
                 sh '''
-                docker run -d --name jenkins_server -p 9090:8080 -p 50000:50000 jenkins/jenkins:lts
+                curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz
+                mkdir -p ${WORKSPACE}/go
+                tar -C ${WORKSPACE}/go --strip-components=1 -xzf go1.16.7.linux-amd64.tar.gz
                 '''
+            }
+        }
+        stage('Find and Run') {
+            steps {
+                sh 'find ${WORKSPACE} -name mainPrueba.go' // Buscar el archivo en el repositorio
+                sh 'ls -al ${WORKSPACE}/main' // Lista los archivos en la carpeta main
+                sh 'go run ${WORKSPACE}/main/mainPrueba.go' // Ejecuta el archivo Go
             }
         }
     }
