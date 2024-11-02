@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Clonar el repositorio
-                    sh 'git clone -b main https://github.com/JuanJoseCamposA/jenkins.git temp_jenkins'
+                    sh 'git clone -b main https://github.com/Daniel202412/jenkins.git temp_jenkins'
                 }
             }
         }
